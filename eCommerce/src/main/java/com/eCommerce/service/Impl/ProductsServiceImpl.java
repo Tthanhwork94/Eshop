@@ -28,5 +28,11 @@ public class ProductsServiceImpl implements ProductsService {
 		Optional<Products> optional = repo.findById(id);
 		return !optional.isEmpty() ? optional.get() : null;
 	}
+
+	@Override
+	public void updateQuantity(Integer newQuantity, Long productId) {
+		// TODO Auto-generated method stub
+		repo.updateQuantity(newQuantity, productId);
+	}
 	
 }

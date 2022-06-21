@@ -227,24 +227,16 @@
                     </thead>
                     <tbody class="align-middle" id="TableCartDetail">
                         <tr th:each="product : ${session.currentCart.details}">
-                            <td class="align-middle"><img src="img/product-1.jpg" alt="" style="width: 50px;" ></td>
+                            <td class="align-middle" th:text="${product.value.name}"> <!--  <img th:src="${product.value.imgUrl}" alt="" style="width: 50px;" >--></td>
                             <td class="align-middle" th:text="'$'+${product.value.price}"></td>
                             <td class="align-middle" text="100">
                                 <div class="input-group quantity mx-auto" style="width: 100px;">
-                                    <!--  <div class="input-group-btn">
-                                        <button class="btn btn-sm btn-primary btn-minus">
-                                        <i class="fa fa-minus"></i>
-                                        </button>
-                                    </div>-->
+                                   
                                     <input type="number"
                                     th:id="'quantity'+${product.key}" 
                                     th:attr="onchange='updateCart(\''+${product.key}+'\')'" class="form-control form-control-sm bg-secondary text-center"
                                     th:value="${product.value.quantity}">  
-                                    <!--  <div class="input-group-btn">
-                                        <button class="btn btn-sm btn-primary btn-plus">
-                                            <i class="fa fa-plus"></i>
-                                        </button>
-                                    </div>-->
+                                   
                                 </div>
                             </td>
                             <td class="align-middle" th:text="'$'+${product.value.price*product.value.quantity}"></td>
@@ -282,7 +274,8 @@
                             <h5 class="font-weight-bold">Total</h5>
                             <h5 class="font-weight-bold" th:text="'$'+${session.currentCart.totalPrice+10}"></h5>
                         </div>
-                        <button th:href="@{/checkout}" class="btn btn-block btn-primary my-3 py-3">Proceed To Checkout</button>
+                        <a th:href="@{/checkout}" class="btn btn-block btn-primary my-3 py-3" th:if="${session.currentUser} != null">Proceed To Checkout</a>
+                    	<a th:href="@{/login}" class="btn btn-block btn-primary my-3 py-3" th:if="${session.currentUser} == null">Proceed To Checkout</a>
                     </div>
                 </div>
             </div>
