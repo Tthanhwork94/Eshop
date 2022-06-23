@@ -16,4 +16,9 @@ public interface OrdersDetailRepo extends JpaRepository<OrderDetails, Long>{
 	@Query(value="INSERT INTO order_details(orderId,productId,quantity,price)"
 	+" VALUES(:#{#dto.orderId},:#{#dto.productId},:#{#dto.quantity},:#{#dto.price})", nativeQuery=true)
 	void insert(@Param("dto") CartDetailDto cartDetailDto);
+	
+	@Query(value = "SELECT SUM(quantity*price) FROM order_details"
+	+" JOIN orders ON order_details.orderId=orders.id"
+	+" WHERE DATEDIFF(MONTH,orders.createdDate,GETDATE())=0",nativeQuery = true)
+	Double sumSales();
 }

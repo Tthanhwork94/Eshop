@@ -47,6 +47,9 @@ public class CheckoutServiceImpl implements CheckoutService{
 				//update quantity
 				Products product=productsService.findById(cartDetail.getProductId());
 				Integer newQuantity=product.getQuantity()-cartDetail.getQuantity();
+				if(newQuantity<0) {
+					throw new Exception("Exception message");
+				}
 				productsService.updateQuantity(newQuantity, product.getId());
 			}
 		}catch(Exception e) {

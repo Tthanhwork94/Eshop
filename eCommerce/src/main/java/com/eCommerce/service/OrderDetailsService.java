@@ -4,4 +4,5 @@ import com.eCommerce.dto.CartDetailDto;
 
 public interface OrderDetailsService {
 	void insert(CartDetailDto cartDetailDto);
+	Double sumSales();
 }

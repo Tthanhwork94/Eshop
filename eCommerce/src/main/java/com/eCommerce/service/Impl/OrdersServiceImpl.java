@@ -19,4 +19,10 @@ public class OrdersServiceImpl implements OrdersService{
 		return repo.saveAndFlush(orders);
 	}
 
+	@Override
+	public Integer countOrders() {
+		// TODO Auto-generated method stub
+		return repo.countOrders();
+	}
+
 }

@@ -34,5 +34,10 @@ public class ProductsServiceImpl implements ProductsService {
 		// TODO Auto-generated method stub
 		repo.updateQuantity(newQuantity, productId);
 	}
+
+	@Override
+	public Integer countProducts() {
+		return repo.countProducts();
+	}
 	
 }

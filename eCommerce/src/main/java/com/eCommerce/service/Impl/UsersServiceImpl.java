@@ -1,6 +1,8 @@
 package com.eCommerce.service.Impl;
 
 import java.sql.SQLException;
+import java.util.List;
+import java.util.Optional;
 
 import javax.transaction.Transactional;
 
@@ -37,6 +39,8 @@ public class UsersServiceImpl implements UsersService{
 			return null;
 		}	
 	}
+	
+	
 
 	@Override
 	@Transactional(rollbackOn = {Exception.class, Throwable.class})
@@ -48,7 +52,51 @@ public class UsersServiceImpl implements UsersService{
 		user.setHashPassword(hashPassword);
 		return repo.saveAndFlush(user);
 	}
-	
+
+	@Override
+	public Integer countUsers() {
+		// TODO Auto-generated method stub
+		return repo.countUsers();
+	}
+
+	@Override
+	public List<Users> findAll() {
+		// TODO Auto-generated method stub
+		return repo.findByIsDeleted(Boolean.FALSE);
+	}
+
+
+
+	@Override
+	public Users findById(Long id) {
+		// TODO Auto-generated method stub
+		Optional<Users> optional=repo.findById(id);
+		return !optional.isEmpty()?optional.get():null;
+	}
+
+	@Override
+	@Transactional(rollbackOn = {Exception.class,Throwable.class})
+	public void deleteLogic(String username) {
+		// TODO Auto-generated method stub
+		repo.deleteLogical(username);
+	}
+
+
+
+	@Override
+	public Users doLoginAdmin(String username, String password) {
+		Users user=repo.findByUsername(username);
+		Roles role=rolesService.findByDescription("admin");
+		if(user!=null && role.equals(user.getRole())) {
+			String hashPassword=user.getHashPassword();
+			boolean checkPassword=bcrypt.matches(password, hashPassword);
+			return checkPassword ? user : null;
+		}else {
+			return null;
+		}
+	}
+
+
 
 	
 }

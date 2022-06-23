@@ -20,6 +20,12 @@ public class OrderDetailsServiceImpl implements OrderDetailsService{
 		// TODO Auto-generated method stub
 		repo.insert(cartDetailDto);
 	}
+
+	@Override
+	public Double sumSales() {
+		// TODO Auto-generated method stub
+		return repo.sumSales();
+	}
 	
 	
 

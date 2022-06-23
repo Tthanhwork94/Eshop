@@ -8,5 +8,7 @@ import com.eCommerce.entity.Orders;
 
 @Repository
 public interface OrdersRepo extends JpaRepository<Orders, Long> {
-
+	
+	@Query(value = "SELECT COUNT(*) FROM orders",nativeQuery=true)
+	Integer countOrders();
 }

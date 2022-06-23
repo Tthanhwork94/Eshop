@@ -1,6 +1,8 @@
 package com.eCommerce.api;
 
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
+import javax.validation.constraints.NotBlank;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -26,9 +28,12 @@ public class CheckoutAPI {
 
 	@GetMapping("")
 	public ResponseEntity<?> doGetCheckout(
-			@RequestParam("address") String address,
-			@RequestParam("phone") String phone,
+			@Valid @NotBlank @RequestParam("address") String address,
+			@Valid @NotBlank @RequestParam("phone") String phone,
 			HttpSession session){
+		if(ObjectUtils.isEmpty(address) && ObjectUtils.isEmpty(address)) {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
 		Users currentUser=(Users) session.getAttribute(SessionConstant.CURRENT_USER);
 		if(!ObjectUtils.isEmpty(currentUser)) {
 			CartDto currentCart=SessionUtil.getCurrentCart(session);

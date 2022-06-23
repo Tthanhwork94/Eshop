@@ -184,11 +184,11 @@
                     <div class="row">
                         <div class="col-md-12 form-group">
                             <label>Address</label>
-                            <input class="form-control" id="address" type="text" placeholder="address">
+                            <input class="form-control" id="address" type="text" placeholder="address" required="required">
                         </div>
                         <div class="col-md-12 form-group">
                             <label>Phone</label>
-                            <input class="form-control" id="phone" type="text" placeholder="phone number">
+                            <input class="form-control" id="phone" type="text" placeholder="phone number" required="required">
                         </div>
                         
                       
@@ -385,7 +385,8 @@
     				statusCode:{
     					200: handle200,
     					400: handle400,
-    					401: handle401
+    					401: handle401,
+    					404: handle404
     				}
     			})
     		}
@@ -396,12 +397,16 @@
     		 }
     		 
     		 function handle400(){
-    			 alert('checkout failed, try again');
+    			 alert('Checkout failed, try again!');
     		 }
     		 
     		 function handle401(){
-    			 alert('please login');
+    			 alert('Please login');
     			 window.location.href='/login';
+    		 }
+    		 
+    		 function handle404(){
+    			 alert('address and phone number are not empty');
     		 }
     		 
     </script>
