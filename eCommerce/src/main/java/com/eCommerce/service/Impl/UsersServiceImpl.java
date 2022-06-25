@@ -6,6 +6,8 @@ import java.util.Optional;
 
 import javax.transaction.Transactional;
 
+import org.apache.commons.lang3.ObjectUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -97,6 +99,28 @@ public class UsersServiceImpl implements UsersService{
 	}
 
 
+
+	@Override
+	public Users findByUsername(String username) {
+		// TODO Auto-generated method stub
+		return repo.findByUsername(username);
+	}
+
+
+
+	@Override
+	@Transactional(rollbackOn = {Exception.class,Throwable.class})
+	public void update(Users user) {
+		
+		if(ObjectUtils.isNotEmpty(user) && StringUtils.isEmpty(user.getHashPassword()) ) {
+			repo.updateNonPass(user.getEmail(), user.getUsername());
+		}else {
+			String hashPassword = bcrypt.encode(user.getHashPassword());
+			user.setHashPassword(hashPassword);
+			repo.update(user.getEmail(), user.getHashPassword(), user.getUsername());
+		}
+
+	}
 
 	
 }

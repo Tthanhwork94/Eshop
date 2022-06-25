@@ -494,7 +494,11 @@
   <script src="../assets/js/plugins/perfect-scrollbar.min.js"></script>
   <script src="../assets/js/plugins/smooth-scrollbar.min.js"></script>
   <script src="../assets/js/plugins/chartjs.min.js"></script>
-  <script>
+  <script  th:inline="javascript">
+  
+  	/*<![CDATA[*/
+	var totalPriceLast6Months = /*[[${chartData}]]*/ 'default';
+	/*]]>*/
     var ctx1 = document.getElementById("chart-line").getContext("2d");
 
     var gradientStroke1 = ctx1.createLinearGradient(0, 230, 0, 50);
@@ -505,9 +509,9 @@
     new Chart(ctx1, {
       type: "line",
       data: {
-        labels: ["Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+        labels: totalPriceLast6Months[0],
         datasets: [{
-          label: "Mobile apps",
+          label: "Doanh thu các tháng gần nhất",
           tension: 0.4,
           borderWidth: 0,
           pointRadius: 0,
@@ -515,7 +519,7 @@
           backgroundColor: gradientStroke1,
           borderWidth: 3,
           fill: true,
-          data: [50, 40, 300, 220, 500, 250, 400, 230, 500],
+          data: totalPriceLast6Months[1],
           maxBarThickness: 6
 
         }],

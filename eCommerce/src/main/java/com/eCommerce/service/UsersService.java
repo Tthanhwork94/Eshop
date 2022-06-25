@@ -13,4 +13,6 @@ public interface UsersService {
 	Users findById(Long id);
 	void deleteLogic(String username);
 	Users doLoginAdmin(String username,String password);
+	Users findByUsername(String username);
+	void update(Users user);
 }

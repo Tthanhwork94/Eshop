@@ -20,4 +20,12 @@ public interface UsersRepo extends JpaRepository<Users, Long> {
 	@Modifying(clearAutomatically = true)
 	@Query(value = "UPDATE users SET isDeleted = 1 WHERE username = ? ",nativeQuery = true)
 	void deleteLogical(String username);
+	
+	@Modifying(clearAutomatically = true)
+	@Query(value="UPDATE users SET email=?1, hashPassword=?2 WHERE username =?3 ",nativeQuery = true)
+	void update(String email,String hashPassword, String username);
+	
+	@Modifying(clearAutomatically = true)
+	@Query(value="UPDATE users SET email=?1 WHERE username =?2 ",nativeQuery = true)
+	void updateNonPass(String email, String username);
 }

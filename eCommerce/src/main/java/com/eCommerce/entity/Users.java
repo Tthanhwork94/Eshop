@@ -11,6 +11,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
 
 import org.hibernate.annotations.CreationTimestamp;
 
@@ -43,9 +45,12 @@ public class Users implements Serializable {
 	private String username;
 	
 	@Column(name="hashPassword")
+	@NotBlank(message = "password must not empty")
 	private String hashPassword;
 	
 	@Column(name="email")
+	@Email
+	@NotBlank(message = "password must not empty")
 	private String email;
 	
 	@ManyToOne
