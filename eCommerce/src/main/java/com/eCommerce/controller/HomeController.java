@@ -1,10 +1,12 @@
 package com.eCommerce.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -28,9 +30,30 @@ public class HomeController {
 	@Autowired
 	private UsersService usersService;
 	
+	private static final int PAGE_SIZE_MAX=8;
+	
 	@GetMapping(value= {"/index","","/"})
-	public String doGetIndex(Model model) {
-		List<Products> products = productsService.findAll();
+	public String doGetIndex(@RequestParam(value="page", required = false, defaultValue = "1") int page,Model model) {
+
+		List<Products> products = new ArrayList<>();
+		if( page ==1 ) {
+			try {
+				Page<Products> pageProducts=productsService.findAll(PAGE_SIZE_MAX, 1);
+				products=pageProducts.getContent();
+				model.addAttribute("totalPages", pageProducts.getTotalPages());
+				model.addAttribute("currentPage", page);
+			}catch(Exception e) {
+				e.printStackTrace();
+			}
+		}
+		try {
+			Page<Products> pageProducts=productsService.findAll(PAGE_SIZE_MAX, page);
+			products=pageProducts.getContent();
+			model.addAttribute("totalPages", pageProducts.getTotalPages());
+			model.addAttribute("currentPage", page);
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
 		model.addAttribute("products", products);
 		return "/index";
 	}

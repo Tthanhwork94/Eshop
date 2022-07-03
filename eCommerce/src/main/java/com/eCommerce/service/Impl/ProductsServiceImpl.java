@@ -4,6 +4,9 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.eCommerce.entity.Products;
@@ -38,6 +41,17 @@ public class ProductsServiceImpl implements ProductsService {
 	@Override
 	public Integer countProducts() {
 		return repo.countProducts();
+	}
+
+	@Override
+	public Page<Products> findAll(int pageSize, int pageNumber) throws Exception {
+		// TODO Auto-generated method stub
+		if(pageNumber>=1) {
+			return repo.findByIsDeletedAndQuantityGreaterThan(Boolean.FALSE, 0, PageRequest.of(pageNumber-1,pageSize));
+		}else {
+			throw new Exception("page number must be greater than 1");
+		}
+		
 	}
 	
 }
