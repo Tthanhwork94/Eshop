@@ -19,6 +19,6 @@ public interface OrdersDetailRepo extends JpaRepository<OrderDetails, Long>{
 	
 	@Query(value = "SELECT SUM(quantity*price) FROM order_details"
 	+" JOIN orders ON order_details.orderId=orders.id"
-	+" WHERE DATEDIFF(MONTH,orders.createdDate,GETDATE())=0",nativeQuery = true)
+	+" WHERE TIMESTAMPDIFF(MONTH,orders.createdDate,CURRENT_DATE())=0",nativeQuery = true)
 	Double sumSales();
 }

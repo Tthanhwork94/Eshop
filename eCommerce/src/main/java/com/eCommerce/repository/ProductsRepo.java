@@ -21,6 +21,6 @@ public interface ProductsRepo extends JpaRepository<Products, Long> {
 	@Query(value = "UPDATE products SET quantity = ? WHERE id = ?",nativeQuery=true)
 	void updateQuantity(Integer newQuantity, Long productId);
 	
-	@Query(value = "SELECT COUNT (*) FROM products",nativeQuery=true)
+	@Query(value = "SELECT COUNT(id) FROM products;",nativeQuery=true)
 	Integer countProducts();
 }

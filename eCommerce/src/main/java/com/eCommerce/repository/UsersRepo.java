@@ -13,7 +13,7 @@ import com.eCommerce.entity.Users;
 @Repository
 public interface UsersRepo extends JpaRepository<Users, Long> {
 	Users findByUsername(String username);
-	@Query(value = "SELECT COUNT(*) FROM users",nativeQuery = true)
+	@Query(value = "SELECT COUNT(id) FROM users WHERE  isDeleted=0",nativeQuery = true)
 	Integer countUsers();
 	List<Users> findByIsDeleted(Boolean isDeleted);
 	

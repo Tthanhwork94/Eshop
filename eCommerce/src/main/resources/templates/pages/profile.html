@@ -277,11 +277,12 @@
               <p class="text-uppercase text-sm" th:text="'Username: '+${userEdit.username}"> </p>
               <p class="text-uppercase text-sm" th:text="'Role: '+${userEdit.role.description}"> </p>
               <p class="text-uppercase text-sm" th:text="'Email: '+${userEdit.email}"></p>
+              <p class="text-uppercase text-sm">New password: Dont fill it if you dont want to change it</p>
               <form th:action="@{/admin/update}" method="POST" th:object="${userRequest}">
 	              <div class="row">            
 		                <div class="col-md-6">
 		                  <div class="form-group">
-		                    <label for="example-text-input" class="form-control-label">Password</label>
+		                    <label for="example-text-input" class="form-control-label">New Password</label>
 		                    <input class="form-control" type="password" placeholder="********"
 		                    th:field="*{hashPassword}">
 		                  </div>
