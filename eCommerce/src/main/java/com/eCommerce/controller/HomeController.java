@@ -32,7 +32,7 @@ public class HomeController {
 	
 	private static final int PAGE_SIZE_MAX=8;
 	
-	@GetMapping(value= {"/index","","/"})
+	@GetMapping(value= {"/index","","/","/home"})
 	public String doGetIndex(@RequestParam(value="page", required = false, defaultValue = "1") int page,Model model) {
 
 		List<Products> products = new ArrayList<>();
